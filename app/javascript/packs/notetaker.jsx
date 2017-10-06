@@ -19,7 +19,7 @@ const Hello = props => (
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Notetaker notes={notes.notes} />,
+    <Notetaker />,
     document.getElementById("mount")
   )
 })

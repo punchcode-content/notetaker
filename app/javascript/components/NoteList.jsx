@@ -1,15 +1,7 @@
 import React from 'react'
-
-const truncate = text => {
-    text = text.replace("\s+", " ")
-    if (text.length < 40) {
-        return text
-    }
-    return text.substr(0, 40) + "...";
-}
+import truncate from 'lodash/truncate'
 
 class NoteList extends React.Component {
-
     renderNote(note, idx) {
         return (
             <div key={note.id} className="NoteList-note" data-idx={idx} onClick={this.onSelect.bind(this)}>
@@ -21,7 +13,6 @@ class NoteList extends React.Component {
 
     onSelect(event) {
         let target = event.currentTarget
-        console.log(target)
         const idx = parseInt(target.getAttribute('data-idx'))
         this.props.onSelect(idx)
     }
@@ -29,6 +20,7 @@ class NoteList extends React.Component {
     render() {
         return (
             <div className="NoteList">
+                <button onClick={this.props.onCreate} style={{width: '100%'}}>Create new note</button>
                 {this
                     .props
                     .notes
