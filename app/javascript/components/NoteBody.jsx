@@ -13,12 +13,16 @@ class NoteBody extends React.Component {
         return (
             <div className="NoteBody">
                 <input type="text" className="NoteBody-title" 
+                    ref={this.props.titleRef}
                     value={this.props.note.title || ""} 
                     onChange={this.handleTitleChange.bind(this)} />
                 <textarea
                     className="NoteBody-text"
                     value={this.props.note.text || ""}
                     onChange={this.handleTextChange.bind(this)}/>
+                <button
+                    style={{position: "absolute", top: "3rem", right: "1rem"}}
+                    onClick={this.props.onDelete}>Delete</button>
             </div>
         )
     }

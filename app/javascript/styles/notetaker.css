@@ -30,6 +30,10 @@
     padding: 10px;
 }
 
+.NoteList-note-selected {
+    background-color: #EEEEFF;
+}
+
 .NoteList-title {
     font-weight: bold;
     font-size: 1.25rem;
@@ -46,6 +50,7 @@ input.NoteBody-title {
 
 .NoteBody-text {
     padding: 2rem;
+    padding-right: 4rem;
     width: 100%;
     height: 95%;
 }

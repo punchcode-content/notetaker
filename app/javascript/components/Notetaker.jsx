@@ -51,6 +51,8 @@ class Notetaker extends React.Component {
                     this.setState({
                         currentIdx: this.state.notes.length,
                         notes: this.state.notes.concat([res.body.note])
+                    }, () => {
+                        this.titleInput.focus();
                     })
                 }
             })
@@ -72,11 +74,21 @@ class Notetaker extends React.Component {
             .send({note: {title: note.title, text: note.text}})
             .end((err, res) => {
                 if (!err) {
-                    // this.setState({
-                    //     notes: update(this.state.notes, {
-                    //         [this.state.currentIdx]: {$set: res.body.note}
-                    //     })
-                    // })
+                    // thumbs up
+                }
+            })
+    }
+
+    deleteNote() {
+        let note = this.currentNote();
+        request
+            .delete(`/notes/${note.id}`)
+            .end((err, res) => {
+                if (!err) {
+                    this.setState({
+                        notes: this.state.notes.filter(aNote => aNote.id != note.id),
+                        currentIdx: this.state.currentIdx - 1
+                    })
                 }
             })
     }
@@ -89,12 +101,15 @@ class Notetaker extends React.Component {
                 <div className="note-wrapper">
                     <div className="note-list">
                         <NoteList notes={notes}
+                            currentIdx={this.state.currentIdx}
                             onCreate={this.createNote.bind(this)} 
                             onSelect={this.changeNote.bind(this)} />
                     </div>
                     <div className="note-body">
                         <NoteBody note={note}
-                            onUpdate={this.updateNote.bind(this)} />}
+                            onUpdate={this.updateNote.bind(this)}
+                            onDelete={this.deleteNote.bind(this)}
+                            titleRef={input => this.titleInput = input} />}
                     </div>
                 </div>
             </div>

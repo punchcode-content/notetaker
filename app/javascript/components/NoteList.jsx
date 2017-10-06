@@ -1,10 +1,19 @@
 import React from 'react'
 import truncate from 'lodash/truncate'
+import classnames from 'classnames'
 
 class NoteList extends React.Component {
     renderNote(note, idx) {
         return (
-            <div key={note.id} className="NoteList-note" data-idx={idx} onClick={this.onSelect.bind(this)}>
+            <div key={note.id} 
+                className={
+                    classnames({
+                        "NoteList-note": true,
+                        "NoteList-note-selected": (this.props.currentIdx == idx) 
+                    })
+                }
+                data-idx={idx} 
+                onClick={this.onSelect.bind(this)}>
                 <div className="NoteList-title">{note.title}</div>
                 <div className="NoteList-body">{truncate(note.text)}</div>
             </div>
